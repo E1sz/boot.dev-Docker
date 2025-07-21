@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
-	"os" // Import os to access environment variables
 )
 
 func main() {
@@ -14,6 +14,9 @@ func main() {
 	m.HandleFunc("/", handlePage)
 
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8991"
+	}
 	srv := http.Server{
 		Handler:      m,
 		Addr:         ":" + port,
